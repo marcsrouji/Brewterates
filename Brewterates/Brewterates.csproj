@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Brewterates.Application\Brewterates.Application.csproj" />
+    <ProjectReference Include="..\Brewterates.Domain\Brewterates.Domain.csproj" />
+    <ProjectReference Include="..\Brewterates.Infrastructre\Brewterates.Infrastructre.csproj" />
+  </ItemGroup>
+
+</Project>
