@@ -1,4 +1,4 @@
-﻿using Brewterates.Domain.Abstractions.IRepositories;
+﻿using Brewterates.Domain.Abstractions.IUnitOfWork;
 using Brewterates.Infrastructre.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Brewterates.Infrastructre.Repositories
+namespace Brewterates.Application.Abstractions
 {
-    public class BreweryRepository : RepositoryBase<Brewery>, IBreweryRepository
+    public interface IWholesalerBeerCatalogRepository : IRepositoryBase<WholesalerBeerCatalog>
     {
-        public BreweryRepository(brewteratesDbContext context) : base (context) { }
+
     }
 }

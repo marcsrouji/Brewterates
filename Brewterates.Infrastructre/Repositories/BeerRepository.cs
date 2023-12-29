@@ -1,6 +1,5 @@
 ﻿using Brewterates.Domain.Abstractions.IRepositories;
 using Brewterates.Domain.Entities;
-using Brewterates.Infrastructre.UnitOfWork;
 
 namespace Brewterates.Infrastructre.Repositories
 {

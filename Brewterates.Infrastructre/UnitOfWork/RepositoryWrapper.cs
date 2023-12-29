@@ -1,4 +1,6 @@
-﻿using Brewterates.Domain.Abstractions.IRepositories;
+﻿using Brewterates.Application.Abstractions;
+using Brewterates.Domain.Abstractions.IRepositories;
+using Brewterates.Domain.Abstractions.IUnitOfWork;
 using Brewterates.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -23,8 +25,11 @@ namespace Brewterates.Infrastructre.UnitOfWork
         public brewteratesDbContext Context { get => _context; }
         public IBeerRepository BeerRepository { get => GetRepository<IBeerRepository>(); }
         public IBreweryRepository BreweryRepository { get => GetRepository<IBreweryRepository>(); }
-
-
+        public IWholesalerBeerCatalogRepository WholesalerBeerCatalogRepository { get => GetRepository<IWholesalerBeerCatalogRepository>(); }
+        public IWholesalerRepository WholesalerRepository { get => GetRepository<IWholesalerRepository>(); }
+        public IWholesalerStockRepository WholesalerStockRepository { get => GetRepository<IWholesalerStockRepository>(); }
+        public IQuoteRepository QuoteRepository { get => GetRepository<IQuoteRepository>(); }
+        public IQuoteItemRepository QuoteItemRepository { get => GetRepository<IQuoteItemRepository>(); }
 
         private TRepositoryInterface GetRepository<TRepositoryInterface>() where TRepositoryInterface : class
         {

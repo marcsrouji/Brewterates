@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Brewterates.Application.Abstractions
 {
-    public interface IBeerService
+    public interface IQuoteService
     {
-        List<BeerDto> GetBeerByBreweyId(long breweryId);
-        Beer CreateBeer(BeerDto beerDto);
-        BeerDto DeleteBeer(long beerId, long brewerId);
-
+        Quote RequestQuote(QuoteDto quoteDto);
     }
 }

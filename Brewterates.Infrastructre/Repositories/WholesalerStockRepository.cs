@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Brewterates.Infrastructre.Repositories
 {
-    public class BreweryRepository : RepositoryBase<Brewery>, IBreweryRepository
+    public class WholesalerStockRepository : RepositoryBase<WholesalerStock>, IWholesalerStockRepository
     {
-        public BreweryRepository(brewteratesDbContext context) : base (context) { }
+        public WholesalerStockRepository(brewteratesDbContext context) : base(context) { }
     }
 }

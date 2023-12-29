@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
-namespace Brewterates.Infrastructre.UnitOfWork
+namespace Brewterates.Infrastructre.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {

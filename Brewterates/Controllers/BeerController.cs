@@ -14,16 +14,21 @@ namespace Brewterates.Controllers
             _beerService = beerService;
         }
 
-        [HttpGet("/BreweryId/{breweryId}")]
-        public ActionResult Get(long breweryId)
+        [HttpGet]
+        public ActionResult GetByBreweryId(long breweryId)
         {
             return Ok(_beerService.GetBeerByBreweyId(breweryId));
         }
 
         [HttpPost]
-        public ActionResult AddBeer(BeerDto breweryId)
+        public ActionResult Create(BeerDto breweryId)
         {
             return Ok(_beerService.CreateBeer(breweryId));
+        }
+        [HttpDelete]
+        public ActionResult Delete(long beerId, long breweryID)
+        {
+            return Ok(_beerService.DeleteBeer(beerId, breweryID));
         }
 
     }

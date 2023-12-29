@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=DESKTOP-A08PTV9\SQLEXPRESS;Initial Catalog=Brewterates;Integrated Security=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Context brewteratesDbContext -UseDatabaseNames -Project Brewterates.Domain -StartupProject Brewterates.Domain -F

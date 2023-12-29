@@ -17,11 +17,14 @@ namespace Brewterates
 
         public static void ConfigureControllers(this IServiceCollection services)
         {
-            services.AddControllers(options => 
+            services.AddControllers(options =>
             options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
-                .AddJsonOptions(options => 
-                options.JsonSerializerOptions.DefaultIgnoreCondition =
-            JsonIgnoreCondition.WhenWritingNull);
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.DefaultIgnoreCondition =
+                JsonIgnoreCondition.WhenWritingNull;
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                });
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Brewterates.Application.Abstractions;
 using Brewterates.Application.DTOs;
-using Brewterates.Domain.Abstractions.IRepositories;
+using Brewterates.Domain.Abstractions.IUnitOfWork;
 using Brewterates.Domain.Entities;
 using Brewterates.Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Brewterates.Application.Services
@@ -25,7 +26,6 @@ namespace Brewterates.Application.Services
             {
                 throw new Exception("The brewery must exist.");
             }
-
 
             List<Beer> lstBeer = _repositoryWrapper
                 .BeerRepository
@@ -56,6 +56,20 @@ namespace Brewterates.Application.Services
             }
 
             return createdBeer;
+        }
+
+        public BeerDto DeleteBeer(long beerId, long brewerId)
+        {
+            Beer beer = _repositoryWrapper.BeerRepository.GetByCondition(b => b.Id == beerId && b.BreweryId == brewerId).FirstOrDefault();
+            if (beer is null)
+            {
+                throw new CustomException("The beer must exist.");
+            }
+
+            _repositoryWrapper.BeerRepository.Delete(beer);
+            _repositoryWrapper.Save();
+
+            return _mapper.BeerToBeerDto(beer);
         }
     }
 }

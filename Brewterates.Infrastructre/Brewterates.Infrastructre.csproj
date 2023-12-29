@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Brewterates.Application\Brewterates.Application.csproj" />
     <ProjectReference Include="..\Brewterates.Domain\Brewterates.Domain.csproj" />
   </ItemGroup>
 

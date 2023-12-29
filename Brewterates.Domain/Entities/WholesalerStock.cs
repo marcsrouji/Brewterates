@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Brewterates.Domain.Entities;
 
-public partial class Stock
+public partial class WholesalerStock
 {
     public long Id { get; set; }
 

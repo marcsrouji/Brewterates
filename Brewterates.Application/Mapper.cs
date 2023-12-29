@@ -8,11 +8,12 @@ namespace Brewterates.Application
     public partial class Mapper
     {
         public partial List<BeerDto> BeerToBeerDtoList(List<Beer> beer);
-        //[MapProperty(nameof(BeerDto.Brewery.Id), nameof(Beer.BreweryId))]
-        //[MapProperty(nameof(BeerDto.Name), nameof(Beer.Name))]
-        //[MapProperty(nameof(BeerDto.AlcoholIntent), nameof(Beer.AlcoholIntent))]
-        //[MapProperty(nameof(BeerDto.Price), nameof(Beer.Price))]
+        [MapperIgnoreTarget(nameof(BeerDto.Brewery))]
+        public partial BeerDto BeerToBeerDto(Beer beer);
+
         [MapperIgnoreTarget(nameof(Beer.Brewery))]
         public partial Beer BeerDtoToBeer(BeerDto beerdto);
+        public partial WholesalerDto WholesalerToWholeSalerDto(Wholesaler beerdto);
+        public partial QuoteItem QuoteItemToQuoteItemDto(QuoteItemDto quoteItemDto);
     }
 }

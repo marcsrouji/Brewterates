@@ -1,4 +1,5 @@
 ﻿using Brewterates.Domain.Abstractions.IRepositories;
+using Brewterates.Domain.Abstractions.IUnitOfWork;
 using Brewterates.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Brewterates.Infrastructre.Repositories
 {
-    public class BreweryRepository : RepositoryBase<Brewery>, IBreweryRepository
+    public class QuoteRepository : RepositoryBase<Quote>, IQuoteRepository
     {
-        public BreweryRepository(brewteratesDbContext context) : base (context) { }
+        public QuoteRepository(brewteratesDbContext context) : base(context) { }
     }
 }

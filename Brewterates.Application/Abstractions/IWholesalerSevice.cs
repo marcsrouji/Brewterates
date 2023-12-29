@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace Brewterates.Application.Abstractions
 {
-    public interface IBeerService
+    public interface IWholesalerSevice
     {
-        List<BeerDto> GetBeerByBreweyId(long breweryId);
-        Beer CreateBeer(BeerDto beerDto);
-        BeerDto DeleteBeer(long beerId, long brewerId);
-
+        WholesalerBeerDataDto AddWholesalerBeerToCatalog(WholesalerBeerDto wholesalerBeerDto);
+        WholesalerStock UpdateWholesalerStockQuantity(StockDto stockDto);
     }
 }

@@ -17,7 +17,7 @@ public partial class Beer
 
     public virtual Brewery Brewery { get; set; } = null!;
 
-    public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
+    public virtual ICollection<WholesalerBeerCatalog> WholesalerBeerCatalogs { get; set; } = new List<WholesalerBeerCatalog>();
 
-    public virtual ICollection<WholesalerBeerList> WholesalerBeerLists { get; set; } = new List<WholesalerBeerList>();
+    public virtual ICollection<WholesalerStock> WholesalerStocks { get; set; } = new List<WholesalerStock>();
 }
