@@ -26,5 +26,10 @@ namespace Brewterates
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });
         }
+
+        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder application)
+        {
+            application.UseMiddleware<ExceptionMiddleware>();
+        }
     }
 }

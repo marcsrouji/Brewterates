@@ -1,6 +1,5 @@
 ﻿using Brewterates.Application.Abstractions.Discount;
 using Brewterates.Application.DTOs;
-using Brewterates.Application.Services.Discount.DiscountStrategies;
 using Brewterates.Domain.Abstractions.IUnitOfWork;
 using Brewterates.Domain.Entities;
 using System;
@@ -20,8 +19,8 @@ namespace Brewterates.Application.Services.Discount
             _repositoryWrapper = repositoryWrapper;
             _discountStrategies = new Dictionary<IDiscountStrategy, (int, int)>()
             {   
-                { new DiscountStrategy10(_repositoryWrapper), (10,20)}, 
-                { new DiscountStrategy20(_repositoryWrapper), (20, int.MaxValue)}
+                { new DiscountStrategy10(), (10,20)}, 
+                { new DiscountStrategy20(), (20, int.MaxValue)}
             };
         }
 
@@ -32,7 +31,7 @@ namespace Brewterates.Application.Services.Discount
             var lstDiscountStrategy = _discountStrategies.Where(d => quantity >= d.Value.floor && quantity < d.Value.ceiling).ToList();
             if (!lstDiscountStrategy.Any())
             {
-                return new DiscountStrategy0(_repositoryWrapper);
+                return new DiscountStrategy0();
             }
 
             IDiscountStrategy discountStrategy = lstDiscountStrategy.MinBy(m => m.Value.floor).Key;
