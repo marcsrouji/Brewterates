@@ -8,7 +8,7 @@ namespace Brewterates.Domain.Exceptions
 {
     public class CustomException : Exception
     {
-        private const string  _message = "An error has occured.";
-        public CustomException(string? message = _message) :base(message) { }
+        private const string _message = "An error has occured.";
+        public CustomException(string? message = _message) : base(message) { }
     }
 }

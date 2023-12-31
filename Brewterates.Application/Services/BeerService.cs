@@ -24,7 +24,7 @@ namespace Brewterates.Application.Services
             Brewery? brewery = _repositoryWrapper.BreweryRepository.GetByCondition(b => b.Id== breweryId).FirstOrDefault();
             if (brewery is null || brewery.Id == 0)
             {
-                throw new Exception("The brewery must exist.");
+                throw new BreweryNotFoundException();
             }
 
             List<Beer> lstBeer = _repositoryWrapper
@@ -41,7 +41,7 @@ namespace Brewterates.Application.Services
             Brewery brewery = _repositoryWrapper.BreweryRepository.GetByCondition(b => b.Id == beerDto.Brewery.Id).FirstOrDefault();
             if (brewery is null)
             {
-                throw new CustomException("The brewery must exist.");
+                throw new BreweryNotFoundException();
             }
 
             Beer beer = _mapper.BeerDtoToBeer(beerDto);
@@ -63,7 +63,7 @@ namespace Brewterates.Application.Services
             Beer beer = _repositoryWrapper.BeerRepository.GetByCondition(b => b.Id == beerId && b.BreweryId == brewerId).FirstOrDefault();
             if (beer is null)
             {
-                throw new CustomException("The beer must exist.");
+                throw new BeerNotFoundException();
             }
 
             _repositoryWrapper.BeerRepository.Delete(beer);

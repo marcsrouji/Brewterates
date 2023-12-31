@@ -28,6 +28,7 @@ namespace Brewterates.Application.Services
 
         public Quote RequestQuote(QuoteDto quoteDto)
         {
+
             ValidateQuote(quoteDto);
             IDiscountStrategy discountStrategy = _discountFactory.GetDiscountStrategy(quoteDto.QuoteItems);
             decimal discount = discountStrategy.CalculateDiscount();
@@ -54,7 +55,7 @@ namespace Brewterates.Application.Services
             _repositoryWrapper.QuoteRepository.Create(quote);
             _repositoryWrapper.Save();
 
-            var quoteItem = quoteDto.QuoteItems.Select(qi => _mapper.QuoteItemToQuoteItemDto(qi)).ToList();
+            var quoteItem = quoteDto.QuoteItems.Select(qi => _mapper.QuoteItemDtoToQuoteItem(qi)).ToList();
 
             quoteItem.ForEach(qi => 
             {
@@ -78,15 +79,17 @@ namespace Brewterates.Application.Services
 
         private void ValidateQuote(QuoteDto quoteDto) 
         {
-            Wholesaler? wholesaler = _repositoryWrapper.WholesalerRepository.GetByCondition(b => b.Id == quoteDto.WholesalerId).FirstOrDefault();
-            if(wholesaler is null)
+
+            if (!quoteDto.QuoteItems.Any())
             {
-                throw new CustomException("The wholesaler must exist");
+                throw new EmptyOrderException();
             }
 
-            if(!quoteDto.QuoteItems.Any())
+
+            Wholesaler? wholesaler = _repositoryWrapper.WholesalerRepository.GetByCondition(b => b.Id == quoteDto.WholesalerId).FirstOrDefault();
+            if (wholesaler is null)
             {
-                throw new CustomException("The order cannot be empty.");
+                throw new WholesalerNotFoundException();
             }
 
             var duplicateExists = quoteDto
@@ -97,7 +100,7 @@ namespace Brewterates.Application.Services
 
             if (duplicateExists)
             {
-                throw new CustomException("There can't be any duplicate in the order.");
+                throw new DuplicateInOrderException();
             }
 
             var lstQuoteItemStock = _repositoryWrapper
@@ -105,22 +108,28 @@ namespace Brewterates.Application.Services
                 .GetByCondition(c => quoteDto.QuoteItems.Select(s => s.BeerId).Contains(c.BeerId))
                 .ToList();
 
+            if (lstQuoteItemStock.Count() == 0 || lstQuoteItemStock.Count() != quoteDto.QuoteItems.Count())
+            {
+                throw new DuplicateInOrderException();
+            }
+
             foreach(var quoteItem in quoteDto.QuoteItems)
             {
                 var itemQuantity = lstQuoteItemStock.Where(w => w.BeerId == quoteItem.BeerId).FirstOrDefault().Quantity;
                 if (quoteItem.Quantity > itemQuantity)
                 {
                     var itemName = _repositoryWrapper.BeerRepository.GetByCondition(b => b.Id == quoteItem.BeerId).FirstOrDefault().Name;
-                    throw new CustomException($"Quantity ordered of {itemName} is not available in stock. Limit : {itemQuantity}");
+                    throw new StockNotAvailableException(itemName, itemQuantity);
                 }
 
                 WholesalerBeerCatalog? wholesalerBeerCatalog = _repositoryWrapper
                         .WholesalerBeerCatalogRepository
                         .GetByCondition(wb => wb.WholesalerId == quoteDto.WholesalerId && wb.BeerId == quoteItem.BeerId)
                         .FirstOrDefault();
+
                 if (wholesalerBeerCatalog is null)
                 {
-                    throw new CustomException("The beer must be sold by the wholesaler");
+                    throw new BeerNotInWholesalerCatalogException();
                 }
             }
 

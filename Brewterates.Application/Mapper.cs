@@ -14,6 +14,6 @@ namespace Brewterates.Application
         [MapperIgnoreTarget(nameof(Beer.Brewery))]
         public partial Beer BeerDtoToBeer(BeerDto beerdto);
         public partial WholesalerDto WholesalerToWholeSalerDto(Wholesaler beerdto);
-        public partial QuoteItem QuoteItemToQuoteItemDto(QuoteItemDto quoteItemDto);
+        public partial QuoteItem QuoteItemDtoToQuoteItem(QuoteItemDto quoteItemDto);
     }
 }

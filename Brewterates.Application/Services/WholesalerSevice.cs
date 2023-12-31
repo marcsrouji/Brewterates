@@ -31,7 +31,7 @@ namespace Brewterates.Application.Services
                 .FirstOrDefault();
             if (dbWholesalerBeerCatalog is not null)
             {
-                throw new CustomException("This beer already exists in your catalog.");
+                throw new BeerAlreadyExistInCatalogException();
             }
 
             Beer? beer = _repositoryWrapper
@@ -41,7 +41,7 @@ namespace Brewterates.Application.Services
 
             if (beer is null)
             {
-                throw new CustomException("The beer must exist.");
+                throw new BeerNotFoundException();
             }
 
             Wholesaler? wholesaler = _repositoryWrapper
@@ -51,7 +51,7 @@ namespace Brewterates.Application.Services
 
             if (wholesaler is null)
             {
-                throw new CustomException("The wholesaler must exist.");
+                throw new WholesalerNotFoundException();
             }
 
             var wholesalerBeerCatalog = new WholesalerBeerCatalog()
@@ -89,7 +89,7 @@ namespace Brewterates.Application.Services
             
             if (WholesalerStock == null)
             {
-                throw new CustomException("This Beer is not in you stock.");
+                throw new BeerNotInWholesalerStockException();
             }
 
             if (stockDto.quantity == WholesalerStock.Quantity)
